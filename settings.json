@@ -1,0 +1,16 @@
+{
+  "dgrad": 1325470,
+  "actual_db": "BoD",
+  "actual_db_desc": "BoD_desc",
+  "fias_raw_db": "BoD",
+  "fias_clean_db": "BoD_v2",
+  "final_db": "BoD_result",
+  "current_version": 20230106,
+  "update_link": "http://fias.nalog.ru/WebServices/Public/GetAllDownloadFileInfo",
+  "authmechanism": "DEFAULT",
+  "authsource": "admin",
+  "default_chunk_size": 10000,
+  "default_chunk_size_mb": 20,
+  "default_timeout": 1000,
+  "path_schema": "Schema"
+}

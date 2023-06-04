@@ -1,17 +1,20 @@
-import folium
-from flask import render_template, request, url_for, redirect
+"""Description"""
+# import folium
+from flask import redirect, render_template, request, url_for
 
-from app import app
-from app.form import *
 # from app.maps import map
-from app.mongodb_connection import BoD_db, BoD_users_db
-from app.models import *
+from bod.mongodb_connection import bod, bod_users
+
+from . import app
+from .forms import (FilterForm, LengthSelector, LoginForm, RegisterForm,
+                    SearchForm)
+from .models import Addrobj, Addrobj_list, House, House_list
 
 
 @app.route('/')
 @app.route('/home')
 def home():
-    title = 'My app - Main'
+    title = 'BOD | Main'
     heading = 'Main page'
     content = 'Привет! Хочешь зарегистрироваться?'
 
@@ -28,7 +31,7 @@ def get_data():
 
 @app.route('/about')
 def about():
-    title = 'My app - About'
+    title = 'BOD | About'
     heading = 'About'
     content = 'Example app page for Flask.'
 
@@ -40,8 +43,8 @@ def about():
 
 @app.route('/tables')
 def tables():
-    title = 'My app - Tables'
-    colls_list = BoD_db().list_collection_names()
+    title = 'BOD | Tables'
+    colls_list = bod.list_collections
 
     content = []
     for coll in colls_list:
@@ -55,10 +58,10 @@ def tables():
 
 @app.route('/tables/<collection_name>/<page_num>', methods=['GET', 'POST'])
 def tables_example(collection_name, page_num):
-    coll = BoD_db().get_collection(collection_name)
-    coll_size = coll.count_documents({})
+    coll = bod.get_collection(collection_name)
+    coll_size = coll.mongo.count_documents({})
     table_name = f'{collection_name} | Page {str(page_num)} | {str(coll_size)} documents'
-    data = list(coll.find({}).limit(20).skip(20*(int(page_num)-1)))
+    data = list(coll.mongo.find({}).limit(20).skip(20*(int(page_num)-1)))
     headings = list(data[0].keys())
     for_paginator = [int(page_num)-1, int(page_num), int(page_num)+1]
     link = f'/tables/{collection_name}'
@@ -70,7 +73,7 @@ def tables_example(collection_name, page_num):
         mes = searchform.search.data
 
     return render_template('tables_example.html',
-                           title=f'My app - {collection_name}',
+                           title=f'BOD | {collection_name}',
                            table_name=table_name,
                            searchform=searchform,
                            filterform=filterform,
@@ -83,7 +86,7 @@ def tables_example(collection_name, page_num):
 
 @app.route('/addrobjs/<page>', methods=['GET', 'POST'])
 def addrobjs(page):
-    title = 'My app - Address Objects'
+    title = 'BOD | Address Objects'
     heading = 'Address Objects'
     # TO DO Выбирать length из селектора (12, 24, 48, 96)
     length_selector = LengthSelector()
@@ -116,10 +119,9 @@ def addrobjs(page):
 
 @app.route('/addrobj/<objectid>', methods=['GET', 'POST'])
 def addrobj(objectid):
-    title = 'My app - Address Object'
+    title = 'BOD | Address Object'
     heading = 'Address Object'
-    ADDROBJ_OBJECTID = objectid
-    data = Addrobj.get_data(ADDROBJ_OBJECTID)
+    data = Addrobj.get_data(objectid)
 
     return render_template('addrobj.html',
                            title=title,
@@ -174,7 +176,7 @@ def addrobj(objectid):
 
 @app.route('/login',  methods=['GET', 'POST'])
 def login():
-    users = BoD_users_db().get_collection('users')
+    users = bod_users.get_collection('users')
     form = LoginForm()
     title = 'My app - Login'
     heading = 'Log in'
@@ -191,7 +193,7 @@ def login():
 @app.route('/signup',  methods=['GET', 'POST'])
 def signup():
     mes = ''
-    users = BoD_users_db().get_collection('users')
+    users = bod_users.get_collection('users')
     form = RegisterForm()
     title = 'My app - Sign up'
     heading = 'Sign up'

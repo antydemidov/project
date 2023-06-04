@@ -160,17 +160,27 @@ cython_debug/
 #.idea/
 
 # Other files
+.env
 .vscode
-node_modules
+*.cpg
 *.csv
+*.dbf
+*.geojson
 *.json
-*.xlsx
+*.prj
 *.qgs
 *.qgz
-*.geojson
-*.cpg
-*.dbf
-*.prj
 *.shp
 *.shx
 *.txt
+*.xlsx
+!settings.json
+!requirements.txt
+*archive*
+73
+internal_data
+node_modules
+Postgre Excahnge Data
+PostgreSQL Queries
+Schema
+source

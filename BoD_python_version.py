@@ -1,20 +1,22 @@
 # Импорт библиотек
-import requests as rq
-import pandas as pd
 import json
-from dadata import Dadata
+
+import pandas as pd
+import requests as rq
 from bs4 import BeautifulSoup as bs
+from dadata import Dadata
+
 
 # ШАГ 0. Создаём функции
-
 # Обработка результатов от dadata.ru
 def create_line(result):
     line1 = {}
-    line1.update({'value':result[0]['value']})
-    line1.update({'unrestricted_value':result[0]['unrestricted_value']})
+    line1.update({'value': result[0]['value']})
+    line1.update({'unrestricted_value': result[0]['unrestricted_value']})
     for keys in result[0]['data'].keys():
-        line1.update({keys:result[0]['data'][keys]})
+        line1.update({keys: result[0]['data'][keys]})
     return line1
+
 
 # Получение кодов улиц
 def parser(site):
@@ -29,9 +31,10 @@ def parser(site):
         table_data_list.append(item.string)
     result = {}
     for k in range(0, len(table_data_list), 6):
-        result.update({table_data_list[k]:table_data_list[k+2:k+6]})
+        result.update({table_data_list[k]: table_data_list[k+2:k+6]})
 
     return result
+
 
 # Получение кодов домов по всем улицам
 def houses_by_street(site):
@@ -43,9 +46,11 @@ def houses_by_street(site):
         href.append(attr['href'])
     return href
 
+
 # ШАГ 1. Получаем коды улиц города
 # alta.ru Улицы по коду города
-source = rq.get('https://www.alta.ru/fias/73b29372-242c-42c5-89cd-8814bc2368af/').text
+source = rq.get(
+    'https://www.alta.ru/fias/73b29372-242c-42c5-89cd-8814bc2368af/').text
 soup = bs(source)
 href = []
 for item in soup.findAll('a', class_="jFastSearch_key"):
@@ -54,7 +59,7 @@ for item in soup.findAll('a', class_="jFastSearch_key"):
 fias_streets = []
 for item in href:
     fias_streets.append(item[6:-1])
-del([item, soup, source, href])
+del ([item, soup, source, href])
 
 # ШАГ 2. Получаем коды домов по кодам улиц
 # alta.ru Дома по коду улицы
