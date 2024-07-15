@@ -1,18 +1,18 @@
-# Buildings of Dimitrovgrad (EN)
+# Buildings of Dimitrovgrad
+
+## English Version
 
 ![Python](https://img.shields.io/badge/python-3670A0?logo=python&logoColor=ffdd54&style=for-the-badge)
 ![Flask](https://img.shields.io/badge/flask-%23000.svg?logo=flask&logoColor=white&style=for-the-badge)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?logo=mongodb&logoColor=white&style=for-the-badge)
-[![Discord](https://img.shields.io/badge/%3CServer%3E-%237289DA.svg?logo=discord&logoColor=white&style=for-the-badge)]()
-<!-- Обновить ссылку -->
 
-## What is this?
+**ATTENTION! BoD doesn't work now. Use it very carefully.**
+
+### What is this?
 
 This project was created to collect data of all buildings located in Dimitrovgrad, Ulyanovsk region, Russia.
 
-## Some words for search
-
-**The table of keys**
+### Some words for search
 
 |Key|Value|
 |---|---|
@@ -24,40 +24,34 @@ This project was created to collect data of all buildings located in Dimitrovgra
 |Code ОКТМО|73705000001|
 |Name|Dimitrovgrad|
 
-## What I use?
+### What I use?
 
-* *TMP* Open Data of alta.ru: [alta.ru](https://www.alta.ru)
 * Open Data of Reforma GKH: [reformagkh.ru](https://www.reformagkh.ru/opendata)
 * Open Street Map: [openstreetmap.org](https://www.openstreetmap.org)
-* *TMP* Datata API: [dadata.ru](https://dadata.ru)
 * Federal Information Address System: [fias.nalog.ru](https://fias.nalog.ru)
-* *TMP* Open Data from [dom.mingkh.ru](https://dom.mingkh.ru)
 
-## Features
+### Documentation
 
-*[Under construction | Read ru version* ⬇ *]*
+* [Read here](./docs/index.md)
+* [A little model of data (miro.com)](https://miro.com/app/board/uXjVNPUQUa4=/?share_link_id=42146313028)
 
-## What I have to do
-
-*[Under construction | Read ru version* ⬇ *]*
-
-## What I want to see as a result
+### What I want to see as a result
 
 *[Under construction | Read ru version* ⬇ *]*
 
-## Thanks
+### Thanks
 
 To the project [how-old-is-this.house](how-old-is-this.house).
 
-# Дома Димитровграда (RU)
+## Русская версия
 
-## Что это такое?
+**ВНИМАНИЕ! BoD сейчас не работает. Используйте этот код очень аккуратно.**
+
+### Что это такое?
 
 Этот проект создан для того, чтобы собрать данные по всем домам города Димитровграда, Ульяновская область, Россия.
 
-## Несколько слов для поиска
-
-**Таблица ключей**
+### Несколько слов для поиска
 
 |Ключ|Значение|
 |---|---|
@@ -69,31 +63,18 @@ To the project [how-old-is-this.house](how-old-is-this.house).
 |Код ОКТМО|73705000001|
 |Название|Димитровград|
 
-## Что я использую?
+### Что я использую?
 
-* *TMP* Общедоступные данные с сайта [alta.ru](https://www.alta.ru)
 * Открытые данные с сайта Реформы ЖКХ: [reformagkh.ru](https://www.reformagkh.ru/opendata)
 * Open Street Map: [openstreetmap.org](https://www.openstreetmap.org)
-* *TMP* Datata API: [dadata.ru](https://dadata.ru)
 * Федеральная Информационная Адресная Система: [fias.nalog.ru](https://fias.nalog.ru)
-* *TMP* Данные сайта [dom.mingkh.ru](https://dom.mingkh.ru)
 
-## Реализовано
+### Документация
 
-* Сбор информации с сайта [alta.ru](https://www.alta.ru). Теперь у нас есть коды ФИАС по домам Димитровграда (естественно, только те, что есть на этом сайте).
-* [Увы, у dadata поменялись условия: DEPRECATED] *С помощью библиотеки [dadata](https://dadata.ru) получаем кучу хорошей инфы. Главное из всего этого - это точка на карте и адрес.*
-* На сайте [dom.mingkh.ru](https://dom.mingkh.ru) есть данные по годам постройки некоторых домов. Собираем их оттуда.
-* Из файлика [OSM](https://www.openstreetmap.org) достаём свойства и координаты домов, всячески обрабатываем эти данные.
+* [Читайте здесь](./docs/index.md)
+* [Небольшая рабочая схема данных (miro.com)](https://miro.com/app/board/uXjVNPUQUa4=/?share_link_id=42146313028)
 
-## Что надо сделать
-
-* Перестать мучить сайт [alta.ru](https://www.alta.ru), перейти на свой экземпляр ФИАС.
-* Убить использование dadata и смочь без них.
-* Обработка ФИАС.
-* Создание БД.
-* Соединение БД ФИАСа с программой.
-
-## Какой я хочу результат?
+### Какой я хочу результат?
 
 1. Собраны все возможные данные по домам города:
    * Весь ФИАС,
@@ -105,10 +86,10 @@ To the project [how-old-is-this.house](how-old-is-this.house).
    * Частные,
    * Многоквартирные,
    * Может, ещё что-то))
-2. Создана БД с данными ФИАС, [dom.mingkh.ru](https://dom.mingkh.ru) и другими.
+2. Создана БД с данными ФИАС, Минкульта и другими.
 3. Создано веб-приложение / сайт с интерактивной картой.
 4. Веб-приложение доступно в сети.
 
-## Спасибо за вдохновление меня
+### Спасибо за вдохновление меня
 
 Проекту [how-old-is-this.house](how-old-is-this.house). Их прекрасные работы завораживают и цепляют на долгие часы, дни и недели - тут уже у кого как получится.

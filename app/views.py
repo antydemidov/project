@@ -1,14 +1,23 @@
-"""Description"""
+"""A set of routes of the app."""
+
 # import folium
-from flask import redirect, render_template, request, url_for
+from flask import (
+    # redirect,
+    render_template,
+    request,
+    # url_for
+)
 
+from app import app
+from app.forms import (
+    FilterForm,
+    LengthSelector,
+    # LoginForm,
+    # RegisterForm,
+    SearchForm
+)
 # from app.maps import map
-from bod.mongodb_connection import bod, bod_users
-
-from . import app
-from .forms import (FilterForm, LengthSelector, LoginForm, RegisterForm,
-                    SearchForm)
-from .models import Addrobj, Addrobj_list, House, House_list
+# from app.models import Addrobj, Addrobj_list, House, House_list
 
 
 @app.route('/')
@@ -88,16 +97,13 @@ def tables_example(collection_name, page_num):
 def addrobjs(page):
     title = 'BOD | Address Objects'
     heading = 'Address Objects'
-    # TO DO Выбирать length из селектора (12, 24, 48, 96)
+    # TODO: Выбирать length из селектора (12, 24, 48, 96)
     length_selector = LengthSelector()
+    length = 0
     if request.method == 'POST':
         length = LengthSelector().selector.data
-    else:
-        length = 0
-    default_length = 12
     if length == 0:
-        length = default_length
-    length = 12
+        length = 12
     for_paginator = [int(page)-1, int(page), int(page)+1]
     link = '/addrobjs'
     data = Addrobj_list.get_data(limit=length, skip=length*int(page)-1)
@@ -174,66 +180,66 @@ def addrobj(objectid):
 #        data=data)
 
 
-@app.route('/login',  methods=['GET', 'POST'])
-def login():
-    users = bod_users.get_collection('users')
-    form = LoginForm()
-    title = 'My app - Login'
-    heading = 'Log in'
-    if form.validate_on_submit():
-        return redirect(url_for('index'))
+# @app.route('/login',  methods=['GET', 'POST'])
+# def login():
+#     users = bod_users.get_collection('users')
+#     form = LoginForm()
+#     title = 'BOD | Login'
+#     heading = 'Log in'
+#     if form.validate_on_submit():
+#         return redirect(url_for('index'))
 
-    return render_template('login.html',
-                           title=title,
-                           heading=heading,
-                           form=form,
-                           users=users)
+#     return render_template('login.html',
+#                            title=title,
+#                            heading=heading,
+#                            form=form,
+#                            users=users)
 
 
-@app.route('/signup',  methods=['GET', 'POST'])
-def signup():
-    mes = ''
-    users = bod_users.get_collection('users')
-    form = RegisterForm()
-    title = 'My app - Sign up'
-    heading = 'Sign up'
-    if form.validate_on_submit() and users.find_one({'username': form.username.data}) is None:
-        users.insert_one({'username': form.username.data,
-                         'password': form.password1.data})
-        return redirect(url_for('index'), title=form.username.data)
-    else:
-        mes = 'Пользователь с таким именем уже существует'
+# @app.route('/signup',  methods=['GET', 'POST'])
+# def signup():
+#     mes = ''
+#     users = bod_users.get_collection('users')
+#     form = RegisterForm()
+#     title = 'BOD | Sign up'
+#     heading = 'Sign up'
+#     if form.validate_on_submit() and users.find_one({'username': form.username.data}) is None:
+#         users.insert_one({'username': form.username.data,
+#                          'password': form.password1.data})
+#         return redirect(url_for('index'), title=form.username.data)
+#     else:
+#         mes = 'Пользователь с таким именем уже существует'
 
-    return render_template('signup.html',
-                           title=title,
-                           heading=heading,
-                           form=form,
-                           mes=mes)
+#     return render_template('signup.html',
+#                            title=title,
+#                            heading=heading,
+#                            form=form,
+#                            mes=mes)
 
 
 # @app.route('/map')
 # def map():
-#    title = 'My app - Map'
+#    title = 'BOD | Map'
 #    heading = 'Map'
 #    return render_template('map_v2.html',
 #        title=title,
 #        heading=heading)
 
 
-@app.route('/map')
-def map():
-    # title = 'My app - Map'
-    # heading = 'Map'
-    fol_map = folium.Map(location=[54.217044, 49.603082],
-                         zoom_start=12,
-                         zoom_control=False,
-                         width='100%',
-                         height='100%',
-                         left='0',
-                         top='0',
-                         position='sticky',
-                         )
-    fol_map.save('app/templates/map_generated.html')
-    # pos = fol_map.get_bounds.....
-    title = 'My app - Map'
-    return render_template('map_v3.html', title=title)
+# @app.route('/map')
+# def map():
+#     # title = 'BOD | Map'
+#     # heading = 'Map'
+#     fol_map = folium.Map(location=[54.217044, 49.603082],
+#                          zoom_start=12,
+#                          zoom_control=False,
+#                          width='100%',
+#                          height='100%',
+#                          left='0',
+#                          top='0',
+#                          position='sticky',
+#                          )
+#     fol_map.save('app/templates/map_generated.html')
+#     # pos = fol_map.get_bounds.....
+#     title = 'My app - Map'
+#     return render_template('map_v3.html', title=title)

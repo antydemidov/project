@@ -160,12 +160,17 @@ cython_debug/
 #.idea/
 
 # Other files
+!requirements.txt
+!settings.json
+_tmp_*
 .env
+.gitignore
 .vscode
 *.cpg
 *.csv
 *.dbf
 *.geojson
+*.ipynb
 *.json
 *.prj
 *.qgs
@@ -174,13 +179,16 @@ cython_debug/
 *.shx
 *.txt
 *.xlsx
-!settings.json
-!requirements.txt
 *archive*
+*x_DEL*
 73
+data
 internal_data
+logs
 node_modules
 Postgre Excahnge Data
 PostgreSQL Queries
+samples
 Schema
 source
+temp

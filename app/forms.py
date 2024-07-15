@@ -1,16 +1,22 @@
+"""A set of forms for the app."""
+
 # from flask_login import user_accessed
 from flask_wtf import FlaskForm
-from wtforms import (PasswordField, SelectField, StringField,
-                     SubmitField)
+from wtforms import (
+    PasswordField,
+    SelectField,
+    StringField,
+    SubmitField
+)
 from wtforms.validators import DataRequired, EqualTo, Length
 
 
 password_length = Length(6, message='Пароль должен содержать от 6 символов!')
 data_required = DataRequired("Поле необходимо заполнить!")
 
+
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[
-                           data_required])
+    username = StringField('Username', validators=[data_required])
     password1 = PasswordField('Password', validators=[
         data_required,
         password_length
@@ -23,12 +29,13 @@ class RegisterForm(FlaskForm):
     password1 = PasswordField('Password',
                               validators=[data_required, password_length]
                               )
-    password2 = PasswordField('Confirm Password',
-                              validators=[
-        data_required,
-        EqualTo('password1', "Пароли не совпадают!"),
-        password_length
-    ])
+    password2 = PasswordField(
+        'Confirm Password',
+        validators=[
+            data_required,
+            EqualTo('password1', "Пароли не совпадают!"),
+            password_length
+        ])
     submit = SubmitField('Sign Up')
 
 
@@ -58,3 +65,9 @@ class LengthSelector(FlaskForm):
                            choices=[12, 24, 48, 96],
                            render_kw={'class': 'btn btn-success btn-block'}
                            )
+
+
+class GeneralStyleForm(FlaskForm):
+    name = StringField('Item Name', validators=[DataRequired])
+    code = StringField('Code', render_kw={'default': ''})
+    ru_name = StringField('Russian Name', validators=[DataRequired])
